@@ -44,6 +44,18 @@ class Stream(models.Model):
     ends_on = models.DateTimeField(blank=True, null=True)
     added_on = models.DateTimeField()
 
+    class Foo(models.Model):
+        GENRE_CHOICES = (
+            ('DIY', 'DIY'),
+            ('Fashion', 'Fashion'),
+            ('Games', 'Games'),
+            ('Comedy', 'Comedy'),
+            ('Tech', 'Tech'),
+            ('Podcast', 'Podcast'),
+        )
+
+    genre = models.CharField(max_length=50, choices=Foo.GENRE_CHOICES, default='Podcast')
+
     class Meta:
-        ordering = ['airs_on', '-added_on', 'author']
+        ordering = ['airs_on', '-added_on', 'genre', 'author']
         db_table = 'streams'
